@@ -142,19 +142,49 @@
 
 ---
 
-## 7. 종합 엔지니어링 요약 (아키텍처 · 테스트 · 엣지 케이스)
+## 7. CCTV 배치별 주요 실패 조건 및 운영·알고리즘 대응 가이드
 
-### 7.1 아키텍처 및 알고리즘 복잡도
+실제 현장(매장, 공장, 교통 관제, 출입구)에 본 고전적 CV 추적 시스템을 배포할 때는 알고리즘 자체뿐 아니라 **카메라 설치 높이·각도·시야 중첩·조명 방향**에 따라 실패 양상이 크게 달라집니다. 아래 표는 배치 조건별 실패 모드와 설치 가이드, 본 프로젝트(`src/config.py`) 파라미터 권장값, 그리고 보조 센서·딥러닝 운영 대응책을 정리한 것입니다.
+
+### 7.1 카메라 배치별 실패 모드 및 대응책 요약표
+
+| CCTV 배치 조건 | 주요 실패 모드 (Failure Mode) | 설치·운영 가이드 (하드웨어/배치) | 본 시스템 권장 파라미터 (`src/config.py`) | 보조 센서 · 딥러닝 적용 권장 |
+| :--- | :--- | :--- | :--- | :--- |
+| **낮은 설치 높이 · 수평 시야**<br>*(높이 1.5~2.0m, 하향 0~15°)* | 앞사람이 뒷사람을 가리는 **가림(Occlusion) 급증**, 전경 마스크 병합 ➔ **ID Switch 폭증(70%+)** | 설치 높이를 **2.8~3.5m**로 상향하고, 하향 각도 **30°~45°** 확보하여 보행자 간 수직 분리 확보 | `max_disappeared=20~25`<br>`use_velocity_prediction=True`<br>`morph_kernel_size=5` | **DeepSORT / BoT-SORT (Re-ID 외형 임베딩)** 최우선 적용, Depth/ToF 센서로 전·후면 객체 깊이 분리 |
+| **과도한 고각 · 직하방 시야**<br>*(하향 75~90°, Top-down)* | 겹침은 감소하나 머리·어깨 위주만 보여 **특징점 소실 ➔ ORB/SIFT 재인식 매칭률 급락** | 재인식이 필요한 구역은 30°~45° 경사각 유지; 인원 계수(People Counting) 전용 구역에만 직하방 적용 | `min_area=300~400`<br>`feature_method="sift"`<br>`min_match_count=10` | **Head/Top-down 전용 경량 CNN 탐지기** 또는 3D 스테레오/ToF 피플카운터 병행 |
+| **원거리 · 얕은 사선 시야**<br>*(깊이 편차 큰 복도/도로)* | 원거리 객체 면적 급감(`min_area` 미만 **미검출**), 근거리 객체 픽셀 속도 폭증(`max_distance` 초과 **ID 분할**) | 관심 영역(ROI)을 근·중거리로 제한하거나 카메라를 구역별로 분할 배치(초점거리 균일화) | 원거리: `min_area=200`, `max_distance=50`<br>근거리: `min_area=800`, `max_distance=110` | **스케일 불변 딥러닝 탐지기(YOLO/FPN)** + 호모그래피 기반 지면 좌표(BEV) 거리 매칭 |
+| **다중 카메라 시야 비중첩 / 과도한 중첩**<br>*(사각지대 vs 중복 영역)* | **비중첩(사각지대)**: 통과 중 `max_disappeared` 초과로 ID 단절·신규 발급<br>**과중첩**: 카메라 간 좌표 불일치로 동일 객체 **중복 ID** | 인접 카메라 간 **15~25% 시야 중첩(Overlap)**을 표준으로 설계하고, 경계 핸드오프 존(Handoff Zone) 정의 | 단일 카메라 내 `max_disappeared=15~20`, 경계 영역 진입/이탈 로그 분리 | **Cross-Camera Re-ID 딥러닝 모델** + 지면 좌표계 캘리브레이션으로 전역 ID 통합 |
+| **역광 · 출입구/창가 직면 배치**<br>*(강한 일조·자동문·실내등 점멸)* | 자동 노출(AE) 변동 및 밝기 급변 ➔ **MOG2 전경 99% 붕괴**, 긴 그림자로 인한 **객체 병합/오검출** | 창문·출입구를 **등지는 방향**으로 설치, 카메라 **WDR(광역 역광 보정)** 활성 및 노출·화이트밸런스 고정 | `bg_method="mog2"`<br>`learning_rate=0.005~0.01`<br>`var_threshold=24~32` (민감도 완화) | **IR/열화상 보조 센서**(조명 무관 전경 분리), **딥러닝 객체 탐지**(조명 급변·그림자 영향 최소화) |
+| **실외 폴대 진동 · 동적 배경**<br>*(바람, 나뭇잎, 에스컬레이터)* | 미세 흔들림으로 정지 배경 전체가 전경화 ➔ **소형 노이즈 윤곽선 폭증 및 FPS 저하** | 방진 마운트·벽면 고정 브래킷 사용, 흔들리는 수목·도로 영역은 ROI 마스킹으로 제외 | `morph_kernel_size=7`<br>`min_area=800~1200`<br>`learning_rate=0.01~0.02` | **시맨틱 세그멘테이션 / 딥러닝 탐지기**로 배경 움직임(나뭇잎·물결)과 관심 클래스(사람/차량) 원천 분리 |
+
+### 7.2 현장 운영 체크리스트 (설치 → 튜닝 → 고도화 3단계)
+1. **1단계 — 물리 설치 최적화 (고전 CV 성능 극대화)**:
+   - 표준 감시 구역은 **높이 2.8~3.5m, 하향 각도 30°~45°, 인접 카메라 시야 중첩 15~25%**를 기준으로 배치합니다.
+   - 출입구·창가 역광을 피하고, 카메라 설정에서 **자동 노출(AE) 급변 방지 및 고정 셔터/WDR**을 적용합니다.
+2. **2단계 — 환경별 파라미터 튜닝 (`src/main.py` CLI 옵션)**:
+   - 조명이 안정된 실내 복도: `--learning-rate 0.003 --min-area 500 --max-distance 80`
+   - 조명 변화가 잦은 출입구/로비: `--learning-rate 0.01 --min-area 700 --max-disappeared 20`
+   - 직선 교차가 잦은 통로: `--velocity-pred --max-distance 90`
+   - 특정 물체 재인식 정확도 우선: `--feature-method sift --min-matches 15` (속도 우선 시 `--feature-method orb`)
+3. **3단계 — 운영적 고도화 (보조 센서 & 딥러닝 전환 기준)**:
+   - 동시 보행자 5명 이상 혼잡 구역(ID Switch > 20%) ➔ **딥러닝 외형 임베딩 기반 추적기(DeepSORT/ByteTrack + Re-ID)** 도입 권장.
+   - 야간·역광·실외 기상 변화 구역(전경 붕괴 빈발) ➔ **IR/열화상·Depth 보조 센서** 연동 또는 **YOLO/RT-DETR 기반 탐지 파이프라인** 전환 권장.
+
+---
+
+## 8. 종합 엔지니어링 요약 (아키텍처 · 테스트 · 엣지 케이스)
+
+### 8.1 아키텍처 및 알고리즘 복잡도
 - **모듈 분리(SRP)**: `config.py` / `background.py` / `detector.py` / **`tracker.py`(독립 분리)** / `feature_matcher.py` / `visualizer.py` / `app.py` / `main.py`
 - **시간 복잡도**: 기존 객체 $M$개, 신규 감지 $N$개일 때 거리 매칭은 $O(MN \log(MN))$ (일반 CCTV 환경 $M, N < 50$에서 < 0.2ms), 궤적 저장은 `collections.deque(maxlen=50)`으로 $O(1)$ 삽입·자동 메모리 상한 유지.
 - **실시간 성능**: `vtest.avi` (768×576) 기준 Headless 파이프라인(MOG2 + Detector + Tracker + ORB Re-ID 동시 실행) 평균 **21.9+ FPS**.
 
-### 7.2 단위 테스트 자동화 결과
+### 8.2 단위 테스트 자동화 결과
 - 실행 명령: `python -m unittest discover -s tests -v`
 - 결과: **18개 테스트 중 18개 통과 (100% PASS, 소요 시간 0.91초)**
 - 포함 항목: MOG2/absdiff 정상 감지, 면적 필터링, ID 부여·유지·소멸, 동률 거리 타이 브레이킹, 속도 예측 규칙, ORB/SIFT 매칭 및 가림 저하, 한글 경로 이미지 로드/스냅샷 저장, 키보드 `p/s/q` Mock 테스트, **금지 라이브러리(`cv2.dnn`, `mediapipe`, `torch`, `tensorflow`, `ultralytics`) 정적 검사**.
 
-### 7.3 해결된 주요 엣지 케이스
+### 8.3 해결된 주요 엣지 케이스
 1. **동률 거리 타이 브레이킹 (`src/tracker.py`)**: 두 객체가 동일 거리일 때 `(distance, object_id, det_idx)` 3-튜플 정렬로 항상 낮은 ID가 결정론적으로 매칭되도록 보장.
 2. **Windows 한글·공백 경로 OpenCV I/O 실패 방어 (`src/feature_matcher.py`, `src/visualizer.py`)**: `cv2.imread`/`cv2.imwrite` 대신 `np.fromfile` + `cv2.imdecode`, `cv2.imencode` + `Path.write_bytes`로 한글 경로 100% 호환.
 3. **Windows 콘솔 UTF-8 한글 깨짐 방어 (`src/main.py`, `scripts/verify_requirements.py`)**: `sys.stdout.reconfigure(encoding="utf-8", errors="replace")` 적용.
