@@ -1,0 +1,508 @@
+{
+  "tracking": {
+    "single_object": {
+      "condition": "단일 객체 이동",
+      "tests": 10,
+      "id_switches": 6,
+      "failures": 0,
+      "trials": [
+        {
+          "video": "one-by-one-person-detection.mp4",
+          "condition": "단일 객체 이동",
+          "frame_range": "60-103",
+          "id_switches": 0,
+          "failures": 0,
+          "note": "단일 보행자 구간 (최대 연속 미검출 0프레임)"
+        },
+        {
+          "video": "one-by-one-person-detection.mp4",
+          "condition": "단일 객체 이동",
+          "frame_range": "179-203",
+          "id_switches": 1,
+          "failures": 0,
+          "note": "단일 보행자 구간 (최대 연속 미검출 0프레임)"
+        },
+        {
+          "video": "one-by-one-person-detection.mp4",
+          "condition": "단일 객체 이동",
+          "frame_range": "227-264",
+          "id_switches": 1,
+          "failures": 0,
+          "note": "단일 보행자 구간 (최대 연속 미검출 0프레임)"
+        },
+        {
+          "video": "one-by-one-person-detection.mp4",
+          "condition": "단일 객체 이동",
+          "frame_range": "431-449",
+          "id_switches": 0,
+          "failures": 0,
+          "note": "단일 보행자 구간 (최대 연속 미검출 0프레임)"
+        },
+        {
+          "video": "one-by-one-person-detection.mp4",
+          "condition": "단일 객체 이동",
+          "frame_range": "502-556",
+          "id_switches": 1,
+          "failures": 0,
+          "note": "단일 보행자 구간 (최대 연속 미검출 0프레임)"
+        },
+        {
+          "video": "one-by-one-person-detection.mp4",
+          "condition": "단일 객체 이동",
+          "frame_range": "597-633",
+          "id_switches": 2,
+          "failures": 0,
+          "note": "단일 보행자 구간 (최대 연속 미검출 0프레임)"
+        },
+        {
+          "video": "one-by-one-person-detection.mp4",
+          "condition": "단일 객체 이동",
+          "frame_range": "678-700",
+          "id_switches": 1,
+          "failures": 0,
+          "note": "단일 보행자 구간 (최대 연속 미검출 0프레임)"
+        },
+        {
+          "video": "one-by-one-person-detection.mp4",
+          "condition": "단일 객체 이동",
+          "frame_range": "745-775",
+          "id_switches": 0,
+          "failures": 0,
+          "note": "단일 보행자 구간 (최대 연속 미검출 0프레임)"
+        },
+        {
+          "video": "one-by-one-person-detection.mp4",
+          "condition": "단일 객체 이동",
+          "frame_range": "848-870",
+          "id_switches": 0,
+          "failures": 0,
+          "note": "단일 보행자 구간 (최대 연속 미검출 0프레임)"
+        },
+        {
+          "video": "one-by-one-person-detection.mp4",
+          "condition": "단일 객체 이동",
+          "frame_range": "921-955",
+          "id_switches": 0,
+          "failures": 0,
+          "note": "단일 보행자 구간 (최대 연속 미검출 0프레임)"
+        }
+      ]
+    },
+    "two_objects_crossing_baseline": {
+      "condition": "두 객체 겹침",
+      "use_velocity_prediction": false,
+      "tests": 10,
+      "id_switches": 7,
+      "failures": 1,
+      "trials": [
+        {
+          "video": "vtest_crossing_case_01",
+          "condition": "두 객체 겹침",
+          "frame_range": "1-74",
+          "id_switches": 1,
+          "failures": 0,
+          "note": "정면 수평 교차 (등속) (겹침 후 오매칭 39프레임)"
+        },
+        {
+          "video": "vtest_crossing_case_02",
+          "condition": "두 객체 겹침",
+          "frame_range": "1-74",
+          "id_switches": 1,
+          "failures": 0,
+          "note": "대각선 X자 교차 (겹침 후 오매칭 37프레임)"
+        },
+        {
+          "video": "vtest_crossing_case_03",
+          "condition": "두 객체 겹침",
+          "frame_range": "1-74",
+          "id_switches": 1,
+          "failures": 0,
+          "note": "비대칭 속도 교차 (겹침 후 오매칭 31프레임)"
+        },
+        {
+          "video": "vtest_crossing_case_04",
+          "condition": "두 객체 겹침",
+          "frame_range": "1-74",
+          "id_switches": 1,
+          "failures": 0,
+          "note": "교차점 3프레임 겹침 정체 (겹침 후 오매칭 36프레임)"
+        },
+        {
+          "video": "vtest_crossing_case_05",
+          "condition": "두 객체 겹침",
+          "frame_range": "1-74",
+          "id_switches": 0,
+          "failures": 0,
+          "note": "교차 직후 방향 전환 A (겹침 후 오매칭 0프레임)"
+        },
+        {
+          "video": "vtest_crossing_case_06",
+          "condition": "두 객체 겹침",
+          "frame_range": "1-74",
+          "id_switches": 0,
+          "failures": 0,
+          "note": "교차 직후 방향 전환 B (겹침 후 오매칭 0프레임)"
+        },
+        {
+          "video": "vtest_crossing_case_07",
+          "condition": "두 객체 겹침",
+          "frame_range": "1-74",
+          "id_switches": 1,
+          "failures": 0,
+          "note": "완만한 대각선 교차 (겹침 후 오매칭 34프레임)"
+        },
+        {
+          "video": "vtest_crossing_case_08",
+          "condition": "두 객체 겹침",
+          "frame_range": "1-74",
+          "id_switches": 0,
+          "failures": 0,
+          "note": "교차점 정체 + 방향 전환 (겹침 후 오매칭 0프레임)"
+        },
+        {
+          "video": "vtest_crossing_case_09",
+          "condition": "두 객체 겹침",
+          "frame_range": "1-74",
+          "id_switches": 1,
+          "failures": 1,
+          "note": "고속 수평 교차 (겹침 후 오매칭 34프레임)"
+        },
+        {
+          "video": "vtest_crossing_case_10",
+          "condition": "두 객체 겹침",
+          "frame_range": "1-74",
+          "id_switches": 1,
+          "failures": 0,
+          "note": "저속 밀착 교차 (겹침 후 오매칭 27프레임)"
+        }
+      ]
+    },
+    "two_objects_crossing_velocity_rule": {
+      "condition": "두 객체 겹침",
+      "use_velocity_prediction": true,
+      "tests": 10,
+      "id_switches": 3,
+      "failures": 1,
+      "trials": [
+        {
+          "video": "vtest_crossing_case_01",
+          "condition": "두 객체 겹침",
+          "frame_range": "1-74",
+          "id_switches": 0,
+          "failures": 0,
+          "note": "정면 수평 교차 (등속) (겹침 후 오매칭 0프레임)"
+        },
+        {
+          "video": "vtest_crossing_case_02",
+          "condition": "두 객체 겹침",
+          "frame_range": "1-74",
+          "id_switches": 0,
+          "failures": 0,
+          "note": "대각선 X자 교차 (겹침 후 오매칭 0프레임)"
+        },
+        {
+          "video": "vtest_crossing_case_03",
+          "condition": "두 객체 겹침",
+          "frame_range": "1-74",
+          "id_switches": 0,
+          "failures": 0,
+          "note": "비대칭 속도 교차 (겹침 후 오매칭 0프레임)"
+        },
+        {
+          "video": "vtest_crossing_case_04",
+          "condition": "두 객체 겹침",
+          "frame_range": "1-74",
+          "id_switches": 0,
+          "failures": 0,
+          "note": "교차점 3프레임 겹침 정체 (겹침 후 오매칭 0프레임)"
+        },
+        {
+          "video": "vtest_crossing_case_05",
+          "condition": "두 객체 겹침",
+          "frame_range": "1-74",
+          "id_switches": 1,
+          "failures": 0,
+          "note": "교차 직후 방향 전환 A (겹침 후 오매칭 36프레임)"
+        },
+        {
+          "video": "vtest_crossing_case_06",
+          "condition": "두 객체 겹침",
+          "frame_range": "1-74",
+          "id_switches": 1,
+          "failures": 0,
+          "note": "교차 직후 방향 전환 B (겹침 후 오매칭 29프레임)"
+        },
+        {
+          "video": "vtest_crossing_case_07",
+          "condition": "두 객체 겹침",
+          "frame_range": "1-74",
+          "id_switches": 0,
+          "failures": 0,
+          "note": "완만한 대각선 교차 (겹침 후 오매칭 0프레임)"
+        },
+        {
+          "video": "vtest_crossing_case_08",
+          "condition": "두 객체 겹침",
+          "frame_range": "1-74",
+          "id_switches": 1,
+          "failures": 0,
+          "note": "교차점 정체 + 방향 전환 (겹침 후 오매칭 26프레임)"
+        },
+        {
+          "video": "vtest_crossing_case_09",
+          "condition": "두 객체 겹침",
+          "frame_range": "1-74",
+          "id_switches": 0,
+          "failures": 1,
+          "note": "고속 수평 교차 (겹침 후 오매칭 0프레임)"
+        },
+        {
+          "video": "vtest_crossing_case_10",
+          "condition": "두 객체 겹침",
+          "frame_range": "1-74",
+          "id_switches": 0,
+          "failures": 0,
+          "note": "저속 밀착 교차 (겹침 후 오매칭 0프레임)"
+        }
+      ]
+    },
+    "object_pause": {
+      "condition": "객체 일시 정지",
+      "tests": 5,
+      "id_switches": 4,
+      "failures": 5,
+      "trials": [
+        {
+          "video": "one-by-one_pause_case_01",
+          "condition": "객체 일시 정지",
+          "frame_range": "1-95",
+          "id_switches": 0,
+          "failures": 1,
+          "note": "15프레임 정지 (최대 연속 미검출 15프레임)"
+        },
+        {
+          "video": "one-by-one_pause_case_02",
+          "condition": "객체 일시 정지",
+          "frame_range": "1-105",
+          "id_switches": 1,
+          "failures": 1,
+          "note": "25프레임 정지 (최대 연속 미검출 25프레임)"
+        },
+        {
+          "video": "one-by-one_pause_case_03",
+          "condition": "객체 일시 정지",
+          "frame_range": "1-120",
+          "id_switches": 1,
+          "failures": 1,
+          "note": "40프레임 정지 (최대 연속 미검출 40프레임)"
+        },
+        {
+          "video": "one-by-one_pause_case_04",
+          "condition": "객체 일시 정지",
+          "frame_range": "1-135",
+          "id_switches": 1,
+          "failures": 1,
+          "note": "55프레임 정지 (최대 연속 미검출 55프레임)"
+        },
+        {
+          "video": "one-by-one_pause_case_05",
+          "condition": "객체 일시 정지",
+          "frame_range": "1-150",
+          "id_switches": 1,
+          "failures": 1,
+          "note": "70프레임 정지 (최대 연속 미검출 70프레임)"
+        }
+      ]
+    },
+    "lighting_change": {
+      "condition": "조명 변화",
+      "tests": 5,
+      "id_switches": 4,
+      "failures": 4,
+      "trials": [
+        {
+          "video": "vtest_lighting_case_01",
+          "condition": "조명 변화",
+          "frame_range": "1-220 (변화: 80~)",
+          "id_switches": 1,
+          "failures": 1,
+          "note": "급격한 조명 증가 (+65) (붕괴 지속 21프레임, 30프레임 내 신규ID +11)"
+        },
+        {
+          "video": "vtest_lighting_case_02",
+          "condition": "조명 변화",
+          "frame_range": "1-220 (변화: 80~)",
+          "id_switches": 1,
+          "failures": 1,
+          "note": "급격한 조명 감소 (-55) (붕괴 지속 21프레임, 30프레임 내 신규ID +11)"
+        },
+        {
+          "video": "vtest_lighting_case_03",
+          "condition": "조명 변화",
+          "frame_range": "1-220 (변화: 80~)",
+          "id_switches": 1,
+          "failures": 1,
+          "note": "중간 조명 증가 (+40) (붕괴 지속 21프레임, 30프레임 내 신규ID +12)"
+        },
+        {
+          "video": "vtest_lighting_case_04",
+          "condition": "조명 변화",
+          "frame_range": "1-220 (변화: 80~)",
+          "id_switches": 0,
+          "failures": 0,
+          "note": "조명 깜빡임 (Flicker) (붕괴 지속 3프레임, 30프레임 내 신규ID +0)"
+        },
+        {
+          "video": "vtest_lighting_case_05",
+          "condition": "조명 변화",
+          "frame_range": "1-220 (변화: 80~)",
+          "id_switches": 1,
+          "failures": 1,
+          "note": "점진적 일조 변화 (+1/f) (붕괴 지속 17프레임, 30프레임 내 신규ID +48)"
+        }
+      ]
+    },
+    "real_video_observations": [
+      {
+        "video": "vtest.avi",
+        "frames": 300,
+        "total_unique_ids": 18,
+        "max_concurrent_objects": 7
+      },
+      {
+        "video": "people-detection.mp4",
+        "frames": 300,
+        "total_unique_ids": 45,
+        "max_concurrent_objects": 16
+      }
+    ]
+  },
+  "learning_rates": [
+    {
+      "learning_rate": 0.001,
+      "vtest_avg_fg_pct": 2.89,
+      "vtest_avg_detections": 6.21,
+      "stopped_object_absorbed_frames": 111,
+      "lighting_jump_peak_fg_pct": 99.31,
+      "lighting_recovery_frames": 111
+    },
+    {
+      "learning_rate": 0.01,
+      "vtest_avg_fg_pct": 1.27,
+      "vtest_avg_detections": 3.85,
+      "stopped_object_absorbed_frames": 11,
+      "lighting_jump_peak_fg_pct": 99.36,
+      "lighting_recovery_frames": 11
+    },
+    {
+      "learning_rate": 0.1,
+      "vtest_avg_fg_pct": 0.03,
+      "vtest_avg_detections": 0.0,
+      "stopped_object_absorbed_frames": 1,
+      "lighting_jump_peak_fg_pct": 0.32,
+      "lighting_recovery_frames": 1
+    }
+  ],
+  "feature_matching": {
+    "orb": [
+      {
+        "condition": "정면",
+        "target_keypoints": 865,
+        "frame_keypoints": 865,
+        "good_matches": 865,
+        "match_rate": 100.0,
+        "detected": true
+      },
+      {
+        "condition": "30도 회전",
+        "target_keypoints": 865,
+        "frame_keypoints": 876,
+        "good_matches": 423,
+        "match_rate": 48.9,
+        "detected": true
+      },
+      {
+        "condition": "60도 회전",
+        "target_keypoints": 865,
+        "frame_keypoints": 877,
+        "good_matches": 313,
+        "match_rate": 36.18,
+        "detected": true
+      },
+      {
+        "condition": "30% 가림",
+        "target_keypoints": 865,
+        "frame_keypoints": 854,
+        "good_matches": 350,
+        "match_rate": 40.46,
+        "detected": true
+      },
+      {
+        "condition": "50% 가림",
+        "target_keypoints": 865,
+        "frame_keypoints": 778,
+        "good_matches": 56,
+        "match_rate": 6.47,
+        "detected": true
+      },
+      {
+        "condition": "실제 장면(box_in_scene)",
+        "target_keypoints": 865,
+        "frame_keypoints": 1000,
+        "good_matches": 42,
+        "match_rate": 4.86,
+        "detected": true
+      }
+    ],
+    "sift": [
+      {
+        "condition": "정면",
+        "target_keypoints": 604,
+        "frame_keypoints": 604,
+        "good_matches": 604,
+        "match_rate": 100.0,
+        "detected": true
+      },
+      {
+        "condition": "30도 회전",
+        "target_keypoints": 604,
+        "frame_keypoints": 664,
+        "good_matches": 383,
+        "match_rate": 63.41,
+        "detected": true
+      },
+      {
+        "condition": "60도 회전",
+        "target_keypoints": 604,
+        "frame_keypoints": 623,
+        "good_matches": 372,
+        "match_rate": 61.59,
+        "detected": true
+      },
+      {
+        "condition": "30% 가림",
+        "target_keypoints": 604,
+        "frame_keypoints": 442,
+        "good_matches": 414,
+        "match_rate": 68.54,
+        "detected": true
+      },
+      {
+        "condition": "50% 가림",
+        "target_keypoints": 604,
+        "frame_keypoints": 336,
+        "good_matches": 296,
+        "match_rate": 49.01,
+        "detected": true
+      },
+      {
+        "condition": "실제 장면(box_in_scene)",
+        "target_keypoints": 604,
+        "frame_keypoints": 969,
+        "good_matches": 80,
+        "match_rate": 13.25,
+        "detected": true
+      }
+    ]
+  }
+}
