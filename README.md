@@ -119,3 +119,32 @@ python scripts/verify_requirements.py --json
   ]
 }
 ```
+
+---
+
+## 5. 평가자용 실시간 시연 가이드 & 실행 결과 장면 (`scripts/run_demo.py`)
+
+평가자가 **다중 객체 추적(바운딩 박스·ID·궤적·FPS)**과 **특정 물체 재인식(`TARGET DETECTED`)**이 한 화면에서 동시에 동작하는 시연 장면을 즉시 확인·재생할 수 있는 전용 스크립트를 제공합니다.
+
+### 원클릭 시연 실행 명령어
+```powershell
+# 1. 실시간 GUI 창으로 통합 시연 바로 보기 (추적 + TARGET DETECTED 동시 시연, q 키로 종료)
+python scripts/run_demo.py --gui
+
+# 2. GUI 없이 시연 영상(output/demo_combined.mp4) 및 대표 스냅샷 2장 자동 생성
+python scripts/run_demo.py
+
+# 3. 일반 실시간 앱 GUI 실행 (키보드: q 종료 / s 스냅샷 저장 / p 일시정지)
+python -m src.main --source data/videos/vtest.avi --target data/targets/box.png
+```
+
+### 시연 장면 ① — 실제 보행자 영상(`vtest.avi`) 다중 객체 추적 · 고유 ID · 이동 궤적 · FPS HUD
+![실제 보행자 다중 추적 시연 장면](diagrams/demo_tracking_vtest.png)
+
+> **관찰 포인트**: 고정 카메라 배경에서 움직이는 보행자들만 분리해 각기 다른 색상의 바운딩 박스, `ID` 라벨, 이동 경로 궤적 선, 좌상단 실시간 `FPS / Objects / 키보드 단축키` HUD가 오버레이됩니다.
+
+### 시연 장면 ② — 다중 객체 추적 + 특정 물체 재인식(`TARGET DETECTED`) 동시 동작
+![추적 및 TARGET DETECTED 동시 시연 장면](diagrams/demo_target_detected.png)
+
+> **관찰 포인트**: 보행자 추적과 동시에 등록 물체(`box.png`)가 화면을 이동할 때 **추적 ID·궤적**이 부여됨과 함께, ORB 특징점 매칭이 임계값(15개)을 넘어 화면 하단에 초록색 **`TARGET DETECTED (Target Found)`** 배너(유효 매칭 수·매칭률 포함)가 실시간으로 표시됩니다.
+
