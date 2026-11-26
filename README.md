@@ -138,6 +138,11 @@ python scripts/run_demo.py
 python -m src.main --source data/videos/vtest.avi --target data/targets/box.png
 ```
 
+### 실시간 3단 파이프라인 동작 애니메이션 (원본 영상 ➔ 흑백 전경 추출 ➔ ID·궤적·재인식 추적)
+![3단 파이프라인 실시간 동작 GIF](diagrams/demo_pipeline.gif)
+
+> **관찰 포인트**: 왼쪽(**1. 원본 영상**)에서 움직이는 보행자와 물체를 가운데(**2. 배경 차분 + 모폴로지 흑백 마스크**)로 추출한 뒤, 오른쪽(**3. 바운딩 박스·고유 ID·이동 궤적 + `TARGET DETECTED` 배너**)처럼 실시간으로 추적하는 전 과정을 한눈에 확인할 수 있습니다.
+
 ### 시연 장면 ① — 실제 보행자 영상(`vtest.avi`) 다중 객체 추적 · 고유 ID · 이동 궤적 · FPS HUD
 ![실제 보행자 다중 추적 시연 장면](diagrams/demo_tracking_vtest.png)
 
